@@ -3,7 +3,9 @@ package com.example.customdi.di
 import kotlin.reflect.KClass
 import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.primaryConstructor
+import kotlin.reflect.full.memberProperties
 import kotlin.reflect.jvm.isAccessible
+import kotlin.reflect.KMutableProperty1
 
 
 @Target(AnnotationTarget.CONSTRUCTOR, AnnotationTarget.FIELD)
@@ -44,10 +46,18 @@ class CustomDI {
             getInstance(it.type.classifier as KClass<*>)
         }
         val obj = ctor.callBy(args)
-        //  Внедрение полей @Inject
-        // 7) Кэшируем и возвращаем
+        
+        // Field injection for @Inject annotated fields
+        obj::class.memberProperties.forEach { property ->
+            if (property.findAnnotation<Inject>() != null && property is KMutableProperty1<*, *>) {
+                property.isAccessible = true
+                @Suppress("UNCHECKED_CAST")
+                (property as KMutableProperty1<Any, Any>).set(obj, getInstance(property.returnType.classifier as KClass<*>))
+            }
+        }
+        
+        // Cache and return
         singletons[type] = obj
         return obj
-
     }
 }

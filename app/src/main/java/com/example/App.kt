@@ -16,6 +16,6 @@ class App(): Application() {
         customDI = CustomDI()
         customDI.registerProvider(Config::class,
             Provider { Config("Global API Key from Application") })
-        customDI.registerProvider(LocalDataSource::class, Provider { LocalDataSourceImpl() })
+        // LocalDataSource is registered in CustomModule to avoid duplication
     }
 }

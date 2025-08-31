@@ -12,10 +12,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.App
 import com.example.customdi.di.CustomModule
 import com.example.customdi.CustomViewModelFactory
 import com.example.customdi.di.CustomDI
 import com.example.customdi.ui.theme.CustomDITheme
+import com.example.customdi.presentation.MyViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +27,7 @@ class MainActivity : ComponentActivity() {
 
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val di = CustomDI()
+        val di = (application as App).customDI
         CustomModule().configure(di)
         customViewModelFactory = CustomViewModelFactory(di)
 
