@@ -1,4 +1,4 @@
-package com.example.customdi
+package com.example.customdi.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -12,8 +12,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.customdi.di.CustomModule
+import com.example.customdi.CustomViewModelFactory
 import com.example.customdi.di.CustomDI
-import com.example.customdi.di.Provider
 import com.example.customdi.ui.theme.CustomDITheme
 
 class MainActivity : ComponentActivity() {

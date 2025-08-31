@@ -1,9 +1,9 @@
 package com.example
 
 import android.app.Application
-import com.example.customdi.Config
-import com.example.customdi.LocalDataSource
-import com.example.customdi.LocalDataSourceImpl
+import com.example.customdi.di.Config
+import com.example.customdi.data.LocalDataSource
+import com.example.customdi.data.LocalDataSourceImpl
 import com.example.customdi.di.CustomDI
 import com.example.customdi.di.Provider
 

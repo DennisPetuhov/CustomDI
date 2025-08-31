@@ -9,8 +9,6 @@ import kotlin.reflect.jvm.isAccessible
 @Target(AnnotationTarget.CONSTRUCTOR, AnnotationTarget.FIELD)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class Inject
-
-// Провайдер для кастомных модулей
 fun interface Provider<T> {
     fun get(): T
 }
@@ -36,15 +34,15 @@ class CustomDI {
             return inst
         }
         // 3) Выбор конструктора: @Inject или primary/default
-        val ctor = type.constructors.firstOrNull{
+        val ctor = type.constructors.firstOrNull {
             it.findAnnotation<Inject>() != null
-        }?: type.primaryConstructor ?:type.constructors.firstOrNull{it.parameters.isEmpty()}
-        ?:throw IllegalArgumentException("No constructor found for ${type.simpleName}")
-        ctor.isAccessible=true
+        } ?: type.primaryConstructor ?: type.constructors.firstOrNull { it.parameters.isEmpty() }
+        ?: throw IllegalArgumentException("No constructor found for ${type.simpleName}")
+        ctor.isAccessible = true
 
-      val args=  ctor.parameters.associateWith {
+        val args = ctor.parameters.associateWith {
             getInstance(it.type.classifier as KClass<*>)
-       }
+        }
         val obj = ctor.callBy(args)
         //  Внедрение полей @Inject
         // 7) Кэшируем и возвращаем

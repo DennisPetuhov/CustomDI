@@ -1,7 +1,7 @@
-package com.example.customdi
+package com.example.customdi.di
 
-import com.example.customdi.di.CustomDI
-import com.example.customdi.di.Inject
+import com.example.customdi.data.LocalDataSource
+import com.example.customdi.data.LocalDataSourceImpl
 
 class CustomModule {
     fun configure(customDI: CustomDI) {

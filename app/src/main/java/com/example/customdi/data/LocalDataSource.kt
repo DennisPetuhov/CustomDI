@@ -1,4 +1,4 @@
-package com.example.customdi
+package com.example.customdi.data
 
 interface LocalDataSource {
     fun getData(): String
